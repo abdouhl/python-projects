@@ -11,7 +11,7 @@ load_dotenv(join(dirname(__file__), '.env'))
 """
 
 req = requests.get('https://finance.yahoo.com/news/rssindex')
-bs = BeautifulSoup(req.text, 'lxml')
+bs = BeautifulSoup(req.text, 'xml')
 item = bs.find('item')
 title = item.find('title').text
 link = item.find('link').text
