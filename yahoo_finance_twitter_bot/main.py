@@ -17,7 +17,7 @@ title = item.find('title').text
 link = item.find('link').text
 image_url = item.find('media:content').attrs['url']
 print(join(dirname(__file__), '.env'))
-print(os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"))
+print(os.getenv("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"))
 
 twitter_auth_keys = {
     "consumer_key"        : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"),
