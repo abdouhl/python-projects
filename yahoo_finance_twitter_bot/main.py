@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 import os
 from os.path import join, dirname
 
-"""
+
 load_dotenv(join(dirname(__file__), '.env'))
 
-"""
+
 
 req = requests.get('https://finance.yahoo.com/news/rssindex')
 bs = BeautifulSoup(req.text, 'xml')
