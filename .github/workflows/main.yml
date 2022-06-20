@@ -31,6 +31,7 @@ jobs:
           pip install bs4 tweepy requests python-dotenv lxml html5lib
       - name: execute py script 
         run: |
+          echo ${{ secrets.YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY }}
           python yahoo_finance_twitter_bot/main.py
         env:
           YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY: ${{secrets.YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY}}
