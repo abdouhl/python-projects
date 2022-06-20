@@ -9,11 +9,12 @@ from os.path import join, dirname
 load_dotenv(join(dirname(__file__), '.env'))
 
 req = requests.get('https://finance.yahoo.com/news/rssindex')
-bs = BeautifulSoup(req.text, 'xml')
+bs = BeautifulSoup(req.text, 'lxml')
 item = bs.find('item')
 title = item.find('title').text
 link = item.find('link').text
 image_url = item.find('media:content').attrs['url']
+print(title)
 print(join(dirname(__file__), '.env'))
 print(os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"))
 
