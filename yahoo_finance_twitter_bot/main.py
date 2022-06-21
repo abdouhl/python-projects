@@ -41,7 +41,7 @@ items.reverse()
 try:
     for item in items:
         if item[:280] in last_tweet_title:
-            tweet_index = items.index(item)
+            tweet_index = items.index(item) +1
 except:
     tweet_index = 0
 
