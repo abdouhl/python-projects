@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
 from os.path import join, dirname
-
+import urllib.request
 
 load_dotenv(join(dirname(__file__), '.env'))
 
@@ -39,14 +39,27 @@ last_tweet_title = api.user_timeline(count=1)[0].text
 
 items.reverse()
 try:
-    tweet_index = items.index(last_tweet_title)
+    for item in items:
+        if item[:280] in last_tweet_title:
+            tweet_index = items.index(item)
 except:
     tweet_index = 0
 
 
 title = items[tweet_index].find('title').text
 #link = item.find('link').text
-#image_url = item.find('media:content').attrs['url']
-    
+image_url = item.find('media:content').attrs['url']
+img_extention = image_url.slpit('.')[-1]
 
-api.update_status(title[:280])
+opener=urllib.request.build_opener()
+opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+urllib.request.install_opener(opener)
+
+# setting filename and image URL 
+img_filename = join(dirname(__file__), f'tshirt_bot.{img_extention}')
+
+
+# calling urlretrieve function to get resource
+urllib.request.urlretrieve(image_url, img_filename)
+
+api.update_status_with_media(status=title[:280],filename=img_filename )
