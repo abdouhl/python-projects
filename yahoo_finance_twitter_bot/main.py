@@ -40,8 +40,10 @@ last_tweet_title = api.user_timeline(count=1)[0].text
 items.reverse()
 try:
     for item in items:
-        if item.find('title').text[:280] in last_tweet_title:
+        if item.find('title').text[:240] in last_tweet_title:
             tweet_index = items.index(item) +1
+            break
+    tweet_index = 0
 except:
     tweet_index = 0
 
