@@ -49,14 +49,13 @@ except:
 title = items[tweet_index].find('title').text
 #link = item.find('link').text
 image_url = item.find('media:content').attrs['url']
-img_extention = image_url.slpit('.')[-1]
 
 opener=urllib.request.build_opener()
 opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
 urllib.request.install_opener(opener)
 
 # setting filename and image URL 
-img_filename = join(dirname(__file__), f'tshirt_bot.{img_extention}')
+img_filename = join(dirname(__file__), 'tshirt_bot.jpeg')
 
 
 # calling urlretrieve function to get resource
