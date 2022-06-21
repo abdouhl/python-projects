@@ -39,11 +39,11 @@ last_tweet_title = api.user_timeline(count=1)[0].text
 
 items.reverse()
 try:
+    tweet_index = 0
     for item in items:
         if item.find('title').text[:240] in last_tweet_title:
             tweet_index = items.index(item) +1
             break
-    tweet_index = 0
 except:
     tweet_index = 0
 
@@ -66,4 +66,4 @@ print(title)
 # calling urlretrieve function to get resource
 urllib.request.urlretrieve(image_url, img_filename)
 
-api.update_status_with_media(status=f'{title[:240]}\n\n➡️Read More➡️{link}',filename=img_filename )
+#api.update_status_with_media(status=f'{title[:240]}\n\n➡️Read More➡️{link}',filename=img_filename )
