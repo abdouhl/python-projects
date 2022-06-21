@@ -40,13 +40,16 @@ last_tweet_title = api.user_timeline(count=1)[0].text
 items.reverse()
 try:
     for item in items:
-        if item[:280] in last_tweet_title:
+        if item.find('title').text[:280] in last_tweet_title:
             tweet_index = items.index(item) +1
 except:
     tweet_index = 0
 
+print(item.find('title').text[:280] in last_tweet_title)
+print(tweet_index)
 
-title = items[tweet_index].find('title').text
+item = items[tweet_index]
+title = item.find('title').text
 link = item.find('link').text
 image_url = item.find('media:content').attrs['url']
 
@@ -57,7 +60,7 @@ urllib.request.install_opener(opener)
 # setting filename and image URL 
 img_filename = join(dirname(__file__), 'tshirt_bot.jpeg')
 
-
+print(title)
 # calling urlretrieve function to get resource
 urllib.request.urlretrieve(image_url, img_filename)
 
