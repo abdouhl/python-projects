@@ -61,4 +61,4 @@ img_filename = join(dirname(__file__), 'tshirt_bot.jpeg')
 # calling urlretrieve function to get resource
 urllib.request.urlretrieve(image_url, img_filename)
 
-api.update_status_with_media(status=f'{title[:240]}/n/n➡️Read More➡️{link}',filename=img_filename )
+api.update_status_with_media(status=f'{title[:240]}\n\n➡️Read More➡️{link}',filename=img_filename )
