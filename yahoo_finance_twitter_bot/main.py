@@ -14,8 +14,6 @@ req = requests.get('https://finance.yahoo.com/news/rssindex')
 bs = BeautifulSoup(req.text, 'xml')
 items = bs.find_all('item')
 
-print(join(dirname(__file__), '.env'))
-print(os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"))
 
 twitter_auth_keys = {
     "consumer_key"        : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"),
@@ -47,8 +45,6 @@ try:
 except:
     tweet_index = 0
 
-print(item.find('title').text[:280] in last_tweet_title)
-print(tweet_index)
 
 item = items[tweet_index]
 title = item.find('title').text
@@ -62,7 +58,7 @@ urllib.request.install_opener(opener)
 # setting filename and image URL 
 img_filename = join(dirname(__file__), 'tshirt_bot.jpeg')
 
-print(title)
+
 # calling urlretrieve function to get resource
 urllib.request.urlretrieve(image_url, img_filename)
 
