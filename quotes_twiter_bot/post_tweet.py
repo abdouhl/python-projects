@@ -28,10 +28,10 @@ auth.set_access_token(
 api = tweepy.API(auth)
 
 
-interies = os.listdir('/resources/quotes/')
+interies = os.listdir('resources/quotes/')
 
 quote_file = random.choice(interies)
-with open(f'/root/quotes_and_sayings/quotes/{quote_file}') as f:
+with open(f'resources/quotes/{quote_file}') as f:
     quote_file_content =  json.load(f)
 author_name = random.choice(list(quote_file_content.keys()))
 all_author_quotes = quote_file_content[author_name]
