@@ -36,6 +36,7 @@ done_tweets_file = join(dirname(__file__), 'done_tweets.json')
 #follow users
 with open(done_users_file) as j_f: 
 	done_users = json.load(j_f) 
+print('done_users',done_users)
 with open(done_users_unfollow_file) as j_f:
 	done_users_unfollow = json.load(j_f)
 	
