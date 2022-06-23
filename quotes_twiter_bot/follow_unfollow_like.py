@@ -3,7 +3,11 @@ import json
 import tweepy
 import os
 from os.path import join, dirname
+from dotenv import load_dotenv
 
+
+
+load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {
 	"consumer_key"        : os.environ.get("QUOTES_TWITER_BOT_CONSUMER_KEY"),
@@ -35,7 +39,7 @@ with open(done_users_file) as j_f:
 with open(done_users_unfollow_file) as j_f:
 	done_users_unfollow = json.load(j_f)
 	
-for user in api.get_followers(id ='57962071',count=200):
+for user in api.get_followers(id ='22256645',count=200):
 	if user.screen_name not in list(done_users.keys()):
 		user.follow()
 		print('follow',user.screen_name)
@@ -68,7 +72,7 @@ with open(done_users_unfollow_file,'w') as f:
 with open(done_tweets_file) as j_f:
 	done_tweets = json.load(j_f) 
 
-for tweet in api.search_tweets('kitesurfing',result_type='recent',count=100):
+for tweet in api.search_tweets('quotes',result_type='recent',count=100):
 	if tweet.id_str not in list(done_tweets.keys()):
 		api.create_favorite(tweet.id_str)
 		#api.destroy_favorite()

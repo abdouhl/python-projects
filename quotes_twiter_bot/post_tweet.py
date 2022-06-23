@@ -4,7 +4,11 @@ import os
 import sys
 import random
 import tweepy
+from dotenv import load_dotenv
+from os.path import join, dirname
 
+
+load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {
     "consumer_key"        : os.environ.get("QUOTES_TWITER_BOT_CONSUMER_KEY"),
