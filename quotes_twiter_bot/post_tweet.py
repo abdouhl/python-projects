@@ -44,7 +44,7 @@ if len(author_quote) > 280 :
 
 
     
-api.update_status(tweet)
+api.update_status(tweet[:280])
 
 
 
