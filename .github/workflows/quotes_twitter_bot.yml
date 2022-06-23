@@ -2,12 +2,8 @@ name: quotes twitter bot
 
 # Controls when the workflow will run
 on:
-  release:
-    types: [published]
-
-permissions:
-  contents: read
-
+  schedule:
+    - cron: "*/7 * * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
