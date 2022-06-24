@@ -53,7 +53,7 @@ for user in api.get_followers(id ='22256645',count=200):
 		user.follow()
 		print('follow',user.screen_name)
 		wks_users.cell(f'A{user_num}').value = user.screen_name
-		wks_users.cell(f'B{user_num}').value = f'{date.today().strftime("%d/%m/%Y")}'
+		wks_users.cell(f'B{user_num}').value = f'{date.today().strftime("%d/%m/%y")}'
 		break
 
 #unfollow users
@@ -62,12 +62,12 @@ for number in range(1,1000000):
 	b_val = wks_users.cell(f'B{number}').value
 	user_screen_name = wks_users.cell(f'A{number}').value
 	if b_val != 'unfollow' or b_val != '':
-		if datetime.strptime(b_val, '%d/%m/%y') <  datetime.strptime(date.today().strftime("%d/%m/%Y"),"%d/%m/%Y"):
+		if datetime.strptime(b_val, '%d/%m/%y') <  datetime.strptime(date.today().strftime("%d/%m/%y"),"%d/%m/%y"):
 			api.get_user(screen_name=user_screen_name).unfollow()
 			print('unfollow',user_screen_name)
 			wks_users.cell(f'B{number}').value = 'unfollow'
 			break
-		if datetime.strptime(b_val, '%d/%m/%y') >=  datetime.strptime(date.today().strftime("%d/%m/%Y"),"%d/%m/%Y"):
+		if datetime.strptime(b_val, '%d/%m/%y') >=  datetime.strptime(date.today().strftime("%d/%m/%y"),"%d/%m/%y"):
 			break
 	if b_val == "":
 		break
