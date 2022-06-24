@@ -27,10 +27,10 @@ auth.set_access_token(
 api = tweepy.API(auth)
 
 with open( join(dirname(__file__), 'gsheets_api-credentials.json'),'w') as f:
-	json.dump(json.loads(os.environ.get("GDRIVE_API_CREDENTIALS")),f)
+	json.dump(json.loads(os.environ.get("QUOTES_TWITER_BOT_GDRIVE_API_CREDENTIALS")),f)
 gc = pygsheets.authorize(service_file=join(dirname(__file__), 'gsheets_api-credentials.json'))
 
-sht = gc.open_by_key(os.environ.get("SHEET_KEY"))
+sht = gc.open_by_key(os.environ.get("QUOTES_TWITER_BOT_SHEET_KEY"))
 wks_users = sht.worksheet_by_title("quotes follow unfollow")
 wks_tweets = sht.worksheet_by_title("quotes likes")
     
