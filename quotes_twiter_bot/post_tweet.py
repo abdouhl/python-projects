@@ -7,7 +7,6 @@ import tweepy
 from dotenv import load_dotenv
 from os.path import join, dirname
 
-
 load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {
@@ -45,11 +44,3 @@ if len(author_quote) > 280 :
 
     
 api.update_status(tweet[:280])
-
-
-
-
-
-
-
-

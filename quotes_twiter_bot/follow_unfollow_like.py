@@ -1,10 +1,10 @@
-from datetime import date
-import json
+from datetime import date,datetime
 import tweepy
-import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-
+import json
+import pygsheets
+import os
 
 
 load_dotenv(join(dirname(__file__), '.env'))
@@ -26,63 +26,70 @@ auth.set_access_token(
 		)
 api = tweepy.API(auth)
 
+with open( join(dirname(__file__), 'gsheets_api-credentials.json'),'w') as f:
+	json.dump(json.loads(os.environ.get("GDRIVE_API_CREDENTIALS")),f)
+gc = pygsheets.authorize(service_file=join(dirname(__file__), 'gsheets_api-credentials.json'))
+
+sht = gc.open_by_key(os.environ.get("SHEET_KEY"))
+wks_users = sht.worksheet_by_title("quotes follow unfollow")
+wks_tweets = sht.worksheet_by_title("quotes likes")
+    
 
 
-done_users_file = join(dirname(__file__), 'done_users.json')
-done_users_unfollow_file = join(dirname(__file__), 'done_users_unfollow.json')
-done_tweets_file = join(dirname(__file__), 'done_tweets.json')
+
 
 
 #follow users
-with open(done_users_file) as j_f: 
-	done_users = json.load(j_f) 
-print('done_users',done_users)
-with open(done_users_unfollow_file) as j_f:
-	done_users_unfollow = json.load(j_f)
+done_users = []
+for number in range(1,1000000):
+	user_screen_name = wks_users.cell(f'A{number}').value
+	done_users.append(user_screen_name)
+	if user_screen_name == '':
+		user_num = number
+		break
 	
 for user in api.get_followers(id ='22256645',count=200):
-	if user.screen_name not in list(done_users.keys()):
+	if user.screen_name not in done_users:
 		user.follow()
 		print('follow',user.screen_name)
-		done_users[user.screen_name] = date.today().strftime("%d/%m/%Y")
-		done_users_unfollow[user.screen_name] = date.today().strftime("%d/%m/%Y")
+		wks_users.cell(f'A{user_num}').value = user.screen_name
+		wks_users.cell(f'B{user_num}').value = f'{date.today().strftime("%d/%m/%Y")}'
 		break
-
-with open(done_users_file,'w') as f:
-	json.dump(done_users,f)
-with open(done_users_unfollow_file,'w') as f:
-	json.dump(done_users_unfollow,f)
 
 #unfollow users
-with open(done_users_unfollow_file) as j_f:
-	done_users_unfollow = json.load(j_f)
-	
-for user in list(done_users_unfollow.keys()):
-	if done_users_unfollow[user] != date.today().strftime("%d/%m/%Y"):
-		api.get_user(screen_name=user).unfollow()
-		print('unfollow',user)
-		done_users_unfollow.pop(user)
-		break
 
-with open(done_users_unfollow_file,'w') as f:
-	json.dump(done_users_unfollow,f)
+for number in range(1,1000000):
+	b_val = wks_users.cell(f'B{number}').value
+	user_screen_name = wks_users.cell(f'A{number}').value
+	if b_val != 'unfollow' or b_val != '':
+		if datetime.strptime(b_val, '%d/%m/%y') <  datetime.strptime(date.today().strftime("%d/%m/%Y"),"%d/%m/%Y"):
+			api.get_user(screen_name=user_screen_name).unfollow()
+			print('unfollow',user_screen_name)
+			wks_users.cell(f'B{number}').value = 'unfollow'
+			break
+		if datetime.strptime(b_val, '%d/%m/%y') >=  datetime.strptime(date.today().strftime("%d/%m/%Y"),"%d/%m/%Y"):
+			break
+	if b_val == "":
+		break
+		
 
 
 
 #like tweets
-with open(done_tweets_file) as j_f:
-	done_tweets = json.load(j_f) 
+done_tweets = []
+for number in range(1,1000000):
+	tweet_id_str = wks_tweets.cell(f'A{number}').value
+	done_tweets.append(tweet_id_str)
+	if tweet_id_str == '':
+		tweet_num = number
+		break
 
 for tweet in api.search_tweets('quotes',result_type='recent',count=100):
-	if tweet.id_str not in list(done_tweets.keys()):
+	if tweet.id_str not in done_tweets:
 		api.create_favorite(tweet.id_str)
 		#api.destroy_favorite()
 		print('like',tweet.id_str)
-		done_tweets[tweet.id_str] = tweet.id_str
+		wks_users.cell(f'A{tweet_num}').value = tweet.id_str
 		break
-
-with open(done_tweets_file,'w') as f:
-	json.dump(done_tweets,f)
-
 
 
