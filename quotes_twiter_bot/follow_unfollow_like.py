@@ -89,7 +89,7 @@ for tweet in api.search_tweets('quotes',result_type='recent',count=100):
 		api.create_favorite(tweet.id_str)
 		#api.destroy_favorite()
 		print('like',tweet.id_str)
-		done_tweets.cell(f'A{tweet_num}').value = tweet.id_str
+		wks_tweets.cell(f'A{tweet_num}').value = tweet.id_str
 		break
 
 
