@@ -21,6 +21,7 @@ jobs:
       - name: execute py script 
         run: |
           python memes_shop_twitter_bot/post_tweet.py
+          python memes_shop_twitter_bot/follow_unfollow_like.py
         env:
           MEMES_SHOP_TWITTER_BOT_CONSUMER_KEY: ${{secrets.MEMES_SHOP_TWITTER_BOT_CONSUMER_KEY}}
           MEMES_SHOP_TWITTER_BOT_CONSUMER_SECRET: ${{secrets.MEMES_SHOP_TWITTER_BOT_CONSUMER_SECRET}}
