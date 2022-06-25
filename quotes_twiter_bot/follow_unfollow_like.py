@@ -63,7 +63,10 @@ for number in range(1,1000000):
 	user_screen_name = wks_users.cell(f'A{number}').value
 	if b_val != 'unfollow' and b_val != '':
 		if datetime.strptime(b_val, '%d/%m/%y') <  datetime.strptime(date.today().strftime("%d/%m/%y"),"%d/%m/%y"):
-			api.get_user(screen_name=user_screen_name).unfollow()
+			try:
+				api.get_user(screen_name=user_screen_name).unfollow()
+			except:
+				pass
 			print('unfollow',user_screen_name)
 			wks_users.cell(f'B{number}').value = 'unfollow'
 			break
