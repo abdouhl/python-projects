@@ -81,7 +81,7 @@ cropped_image = enhancer.enhance(factor)
 
 enhancer = ImageEnhance.Sharpness(cropped_image)
 
-factor = 0.0 #brightens the image
+factor = 0.0 
 resized_im = enhancer.enhance(factor)
 
 resized_im.save('/root/quotes_and_sayings/quotes_bot.png')
