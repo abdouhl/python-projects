@@ -89,7 +89,10 @@ for number in range(1,1000000):
 
 for tweet in api.search_tweets('quotes',result_type='recent',count=100):
 	if tweet.id_str not in done_tweets:
-		api.create_favorite(tweet.id_str)
+		try:
+			api.create_favorite(tweet.id_str)
+		except:
+			pass
 		#api.destroy_favorite()
 		print('like',tweet.id_str)
 		wks_tweets.cell(f'A{tweet_num}').value = tweet.id_str
