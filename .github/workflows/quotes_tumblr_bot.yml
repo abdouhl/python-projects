@@ -1,0 +1,27 @@
+name: quotes tumblr bot
+
+on:
+  schedule:
+    - cron: "*/7 * * * *" 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytumblr python-dotenv
+      - name: execute py script 
+        run: |
+          python quotes_tumblr_bot/upload_quote.py
+        env:
+          QUOTES_TUMBLR_BOT_CONSUMER_KEY: ${{secrets.QUOTES_TUMBLR_BOT_CONSUMER_KEY}}
+          QUOTES_TUMBLR_BOT_CONSUMER_SECRET: ${{secrets.QUOTES_TUMBLR_BOT_CONSUMER_SECRET}}
+          QUOTES_TUMBLR_BOT_OAUTH_TOKEN: ${{secrets.QUOTES_TUMBLR_BOT_OAUTH_TOKEN}}
+          QUOTES_TUMBLR_BOT_OAUTH_SECRET: ${{secrets.QUOTES_TUMBLR_BOT_OAUTH_SECRET}}
