@@ -21,7 +21,7 @@ import praw
 from praw.models import InlineImage
 from os.path import join, dirname
 from dotenv import load_dotenv
-import pygsheets
+
 
 time.sleep(60)
 load_dotenv(join(dirname(__file__), '.env'))
