@@ -19,7 +19,7 @@ jobs:
           pip install praw python-dotenv
       - name: execute py script 
         run: |
-          python quotes_reddit_bot/upload_to_reddit.py
+          python memes_shop_reddit_bot/upload_to_reddit.py
         env:
           QUOTES_REDDIT_BOT_CLIENT_ID: ${{secrets.QUOTES_REDDIT_BOT_CLIENT_ID}}
           QUOTES_REDDIT_BOT_CLIENT_SECRET: ${{secrets.QUOTES_REDDIT_BOT_CLIENT_SECRET}}
