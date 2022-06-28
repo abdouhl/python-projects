@@ -6,7 +6,9 @@ import json
 import pygsheets
 import os
 import random
+import time
 
+time.sleep(60)
 load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {
