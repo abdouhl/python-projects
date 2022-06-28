@@ -1,0 +1,28 @@
+name: quotes reddit bot
+
+on:
+  schedule:
+    - cron: "*/7 * * * *" 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install praw python-dotenv Pillow
+      - name: execute py script 
+        run: |
+          python quotes_reddit_bot/upload_to_reddit.py
+        env:
+          QUOTES_REDDIT_BOT_CLIENT_ID: ${{secrets.QUOTES_REDDIT_BOT_CLIENT_ID}}
+          QUOTES_REDDIT_BOT_CLIENT_SECRET: ${{secrets.QUOTES_REDDIT_BOT_CLIENT_SECRET}}
+          QUOTES_REDDIT_BOT_USER_AGENT: ${{secrets.QUOTES_REDDIT_BOT_USER_AGENT}}
+          QUOTES_REDDIT_BOT_REDIRECT_URI: ${{secrets.QUOTES_REDDIT_BOT_REDIRECT_URI}}
+          QUOTES_REDDIT_BOT_REFRESH_TOKEN: ${{secrets.QUOTES_REDDIT_BOT_REFRESH_TOKEN}}
