@@ -8,7 +8,7 @@ import os
 import random
 import time
 
-time.sleep(60)
+time.sleep(180)
 load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {

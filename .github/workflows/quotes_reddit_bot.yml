@@ -2,7 +2,7 @@ name: quotes reddit bot
 
 on:
   schedule:
-    - cron: "*/7 * * * *" 
+    - cron: "*/20 * * * *" 
 jobs:
   build:
     runs-on: ubuntu-latest
