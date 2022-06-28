@@ -1,6 +1,5 @@
-name: quotes twitter bot
+name: tyler twitter bot
 
-# Controls when the workflow will run
 on:
   schedule:
     - cron: "*/7 * * * *" 
