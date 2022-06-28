@@ -14,7 +14,6 @@ import os
 import random
 import socket
 import sys
-from os import listdir, remove
 import praw
 import urllib.request
 from os.path import join, dirname

@@ -1,0 +1,27 @@
+name: memes shop tumblr bot
+
+on:
+  schedule:
+    - cron: "*/10 * * * *" 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytumblr python-dotenv
+      - name: execute py script 
+        run: |
+          python memes_shop_tumblr_bot/upload_to_tumblr.py
+        env:
+          MEMES_SHOP_TUMBLR_BOT_CONSUMER_KEY: ${{secrets.MEMES_SHOP_TUMBLR_BOT_CONSUMER_KEY}}
+          MEMES_SHOP_TUMBLR_BOT_CONSUMER_SECRET: ${{secrets.MEMES_SHOP_TUMBLR_BOT_CONSUMER_SECRET}}
+          MEMES_SHOP_TUMBLR_BOT_OAUTH_TOKEN: ${{secrets.MEMES_SHOP_TUMBLR_BOT_OAUTH_TOKEN}}
+          MEMES_SHOP_TUMBLR_BOT_OAUTH_SECRET: ${{secrets.MEMES_SHOP_TUMBLR_BOT_OAUTH_SECRET}}
