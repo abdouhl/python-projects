@@ -15,7 +15,6 @@ import random
 import socket
 import sys
 from os import listdir, remove
-from PIL import Image, ImageEnhance,ImageDraw,ImageFont
 import urllib.request
 import pytumblr
 from os.path import join, dirname
