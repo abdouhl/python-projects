@@ -1,0 +1,25 @@
+name: quotes meta bot
+
+on:
+  schedule:
+    - cron: "0 * * * *" 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install python-dotenv imgbbpy Pillow facebook-sdk
+      - name: execute py script 
+        run: |
+          python quotes_meta_bot/post.py
+        env:
+          QUOTES_LINKEDIN_BOT_ACCESS_TOKEN: ${{secrets.QUOTES_LINKEDIN_BOT_ACCESS_TOKEN}}
+          QUOTES_LINKEDIN_BOT_URN: ${{secrets.QUOTES_LINKEDIN_BOT_URN}}
