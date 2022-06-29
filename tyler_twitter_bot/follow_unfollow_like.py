@@ -81,7 +81,7 @@ for tweet in api.search_tweets(keyword,result_type='recent',count=100):
 time.sleep(60)
 replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(100)
 for reply in replies:
-    if reply.in_reply_to_status_id and reply.is_str not in done_tweets:
+    if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
         try:
              api.create_favorite(reply.id_str)
         except:
