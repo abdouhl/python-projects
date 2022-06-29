@@ -1,6 +1,5 @@
 from datetime import date,datetime
 import time
-from turtle import done
 import tweepy
 from os.path import join, dirname
 from dotenv import load_dotenv
