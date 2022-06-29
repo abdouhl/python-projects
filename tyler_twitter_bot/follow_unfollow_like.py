@@ -74,7 +74,7 @@ for tweet in api.search_tweets(keyword,result_type='recent',count=100):
         except:
             continue
         print(tweet.id_str)
-        wks_done_tweets.cell(f'A{len(done_tweets+1)}').value = tweet.id_str
+        wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = tweet.id_str
         done_tweets.append(tweet.id_str)
         break
 
@@ -87,7 +87,7 @@ for reply in replies:
         except:
             continue
         print(reply.id_str)
-        wks_done_tweets.cell(f'A{len(done_tweets+1)}').value = reply.id_str
+        wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = reply.id_str
         break
 
 
