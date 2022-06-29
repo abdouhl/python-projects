@@ -1,4 +1,6 @@
 from datetime import date,datetime
+import time
+from turtle import done
 import tweepy
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -58,7 +60,6 @@ done_tweets = []
 for number in range(1,200000):
     done_tweet = wks_done_tweets.cell(f'A{number}').value
     if done_tweet == '':
-        tweet_num = number
         break
     done_tweets.append(done_tweet)
 
@@ -73,10 +74,21 @@ for tweet in api.search_tweets(keyword,result_type='recent',count=100):
         except:
             continue
         print(tweet.id_str)
-        wks_done_tweets.cell(f'A{tweet_num}').value = tweet.id_str
+        wks_done_tweets.cell(f'A{len(done_tweets+1)}').value = tweet.id_str
+        done_tweets.append(tweet.id_str)
         break
 
-
+time.sleep(60)
+replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(100)
+for reply in replies:
+    if reply.in_reply_to_status_id and reply.is_str not in done_tweets:
+        try:
+             api.create_favorite(reply.id_str)
+        except:
+            continue
+        print(reply.id_str)
+        wks_done_tweets.cell(f'A{len(done_tweets+1)}').value = reply.id_str
+        break
 
 
 
