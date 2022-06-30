@@ -37,7 +37,7 @@ client = pytumblr.TumblrRestClient(
 
 
 def create_post():
-    with open('resources/products_details.json') as j_f:
+    with open('resources/admitad_products_details.json') as j_f:
         products_details = json.load(j_f)
 
     product_url = random.choice(list(products_details.keys()))
