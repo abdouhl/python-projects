@@ -65,29 +65,31 @@ for number in range(1,200000):
 influencer = random.choice(influencers)
 keyword = random.choice(keywords)
 
+for a in range(1, 3):
+    for tweet in api.search_tweets(keyword,result_type='recent',count=100):
+        if tweet.id_str not in done_tweets:
+            try:
+                api.create_favorite(tweet.id_str)
+            except:
+                continue
+            print(tweet.id_str)
+            wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = tweet.id_str
+            done_tweets.append(tweet.id_str)
+            break
 
-for tweet in api.search_tweets(keyword,result_type='recent',count=100):
-    if tweet.id_str not in done_tweets:
-        try:
-             api.create_favorite(tweet.id_str)
-        except:
-            continue
-        print(tweet.id_str)
-        wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = tweet.id_str
-        done_tweets.append(tweet.id_str)
-        break
-
-time.sleep(60)
-replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200)
-for reply in replies:
-    if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
-        try:
-             api.create_favorite(reply.id_str)
-        except:
-            continue
-        print(reply.id_str)
-        wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = reply.id_str
-        break
+    time.sleep(60)
+    replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200)
+    for reply in replies:
+        if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
+            try:
+                api.create_favorite(reply.id_str)
+            except:
+                continue
+            print(reply.id_str)
+            wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = reply.id_str
+            done_tweets.append(reply.id_str)
+            break
+    time.sleep(150)
 
 
 

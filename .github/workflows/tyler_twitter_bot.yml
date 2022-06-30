@@ -2,7 +2,7 @@ name: tyler twitter bot
 
 on:
   schedule:
-    - cron: "*/7 * * * *" 
+    - cron: "*/10 * * * *" 
 jobs:
   build:
     runs-on: ubuntu-latest
