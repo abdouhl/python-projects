@@ -1,14 +1,3 @@
-#!/usr/bin/env python
- 
-"""This example demonstrates the flow for retrieving a refresh token.
- 
-In order for this example to work your application's redirect URI must be set to
-http://localhost:8080.
- 
-This tool can be used to conveniently create refresh tokens for later use with your web
-application OAuth2 credentials.
-token = '808708533690-9vRl3_wlRfUsOcuMpCIkbvAEHcT4Sw' 
-"""
 import json
 import os
 import random
@@ -186,20 +175,21 @@ def create_post():
         os.environ.get("ADMITAD_BOT_CLIENT_SECRET"),
         os.environ.get("ADMITAD_BOT_SCOPE")
     )
-
+    print('aaa')
 
     product_aff_url = clientt.DeeplinksManage.create(2182985, 13623, ulp=product_url, subid='brands')[0]
 
     tags = f"{title} {brand}".split(" ")
 
-
+    print('fffff')
 
     res = client.create_photo('dealsstore', state="published", tags=tags, 
-                    tweet=f"{brand}:{title}",
-                    link=product_aff_url,
-                    caption=f'<a href="{product_aff_url}">{brand}:{title}</a>',
-                    data=join(dirname(__file__),'img.jpg'))
-      
+        tweet=f"{brand}:{title}",
+        link=product_aff_url,
+        caption=f'<a href="{product_aff_url}">{brand}:{title}</a>',
+        data=join(dirname(__file__),'img.jpg')
+    )
+
     
 
 
