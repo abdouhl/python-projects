@@ -21,5 +21,6 @@ jobs:
         run: |
           python quotes_meta_bot/post.py
         env:
-          QUOTES_LINKEDIN_BOT_ACCESS_TOKEN: ${{secrets.QUOTES_LINKEDIN_BOT_ACCESS_TOKEN}}
-          QUOTES_LINKEDIN_BOT_URN: ${{secrets.QUOTES_LINKEDIN_BOT_URN}}
+          QUOTES_META_BOT_FACEBOOK_ACCESS_TOKEN: ${{secrets.QUOTES_META_BOT_FACEBOOK_ACCESS_TOKEN}}
+          QUOTES_META_BOT_INSTA_TOKEN: ${{secrets.QUOTES_META_BOT_INSTA_TOKEN}}
+          QUOTES_META_BOT_IMGBB_CLIENT: ${{secrets.QUOTES_META_BOT_IMGBB_CLIENT}}

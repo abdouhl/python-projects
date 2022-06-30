@@ -13,9 +13,9 @@ from dotenv import load_dotenv
 
 load_dotenv(join(dirname(__file__), '.env'))
 
-facebook_access_token = os.environ.get("QUOTES_LINKEDIN_BOT_FACEBOOK_ACCESS_TOKEN")
-insta_token = os.environ.get("QUOTES_LINKEDIN_BOT_INSTA_TOKEN")
-imgbb_client = imgbbpy.SyncClient(os.environ.get("QUOTES_LINKEDIN_BOT_IMGBB_CLIENT"))
+facebook_access_token = os.environ.get("QUOTES_META_BOT_FACEBOOK_ACCESS_TOKEN")
+insta_token = os.environ.get("QUOTES_META_BOT_INSTA_TOKEN")
+imgbb_client = imgbbpy.SyncClient(os.environ.get("QUOTES_META_BOT_IMGBB_CLIENT"))
 quotes = []
 images = []
 interies = listdir('resources/images/')
