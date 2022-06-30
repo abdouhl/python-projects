@@ -78,7 +78,7 @@ for tweet in api.search_tweets(keyword,result_type='recent',count=100):
         break
 
 time.sleep(60)
-replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(100)
+replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200)
 for reply in replies:
     if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
         try:
