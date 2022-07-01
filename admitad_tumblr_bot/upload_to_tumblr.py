@@ -171,9 +171,9 @@ def create_post():
 
 
     clientt = api.get_oauth_client_client(
-        os.environ.get("ADMITAD_BOT_CLIENT_ID"),
-        os.environ.get("ADMITAD_BOT_CLIENT_SECRET"),
-        os.environ.get("ADMITAD_BOT_SCOPE")
+        os.environ.get("ADMITAD_TUMBLR_BOT_CLIENT_ID"),
+        os.environ.get("ADMITAD_TUMBLR_BOT_CLIENT_SECRET"),
+        os.environ.get("ADMITAD_TUMBLR_BOT_SCOPE")
     )
     print('aaa')
 
