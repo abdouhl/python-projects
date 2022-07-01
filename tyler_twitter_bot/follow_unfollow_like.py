@@ -65,7 +65,7 @@ for number in range(1,200000):
 influencer = random.choice(influencers)
 keyword = random.choice(keywords)
 
-for a in range(1, 3):
+for a in range(1, 16):
     for tweet in api.search_tweets(keyword,result_type='recent',count=100):
         if tweet.id_str not in done_tweets:
             try:
@@ -77,7 +77,7 @@ for a in range(1, 3):
             done_tweets.append(tweet.id_str)
             break
 
-    time.sleep(60)
+    time.sleep(70)
     replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200)
     for reply in replies:
         if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
