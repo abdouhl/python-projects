@@ -92,7 +92,7 @@ for a in range(1, 16):
             done_tweets.append(reply.id_str)
             break
     if pp:
-        for tweet in api.search_tweets(keyword,result_type='recent',count=100):
+        for tweet in api.search_tweets(keyword,result_type='popular',count=100):
             if tweet.id_str not in done_tweets:
                 try:
                     api.create_favorite(tweet.id_str)
