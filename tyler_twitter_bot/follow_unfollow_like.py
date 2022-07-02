@@ -72,23 +72,36 @@ for a in range(1, 16):
                 api.create_favorite(tweet.id_str)
             except:
                 continue
-            print(tweet.id_str)
+            print('tweet',tweet.id_str)
             wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = tweet.id_str
             done_tweets.append(tweet.id_str)
             break
 
     time.sleep(70)
-    replies = tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200)
-    for reply in replies:
+    pp = True
+    for reply in tweepy.Cursor(api.search_tweets, q=f'to:{influencer}',result_type='recent').items(200):
+        
         if reply.in_reply_to_status_id and reply.id_str not in done_tweets:
             try:
                 api.create_favorite(reply.id_str)
+                pp = False
             except:
                 continue
-            print(reply.id_str)
+            print('reply',reply.id_str)
             wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = reply.id_str
             done_tweets.append(reply.id_str)
             break
+    if pp:
+        for tweet in api.search_tweets(keyword,result_type='recent',count=100):
+            if tweet.id_str not in done_tweets:
+                try:
+                    api.create_favorite(tweet.id_str)
+                except:
+                    continue
+                print('tweet 2',tweet.id_str)
+                wks_done_tweets.cell(f'A{len(done_tweets)+1}').value = tweet.id_str
+                done_tweets.append(tweet.id_str)
+                break
     time.sleep(150)
 
 
