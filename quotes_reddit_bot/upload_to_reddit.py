@@ -1,14 +1,5 @@
 #!/usr/bin/env python
  
-"""This example demonstrates the flow for retrieving a refresh token.
- 
-In order for this example to work your application's redirect URI must be set to
-http://localhost:8080.
- 
-This tool can be used to conveniently create refresh tokens for later use with your web
-application OAuth2 credentials.
-token = '808708533690-9vRl3_wlRfUsOcuMpCIkbvAEHcT4Sw' 
-"""
 import json
 import os
 import random
@@ -21,7 +12,7 @@ import praw
 from praw.models import InlineImage
 from os.path import join, dirname
 from dotenv import load_dotenv
-
+import pygsheets
 
 time.sleep(60)
 load_dotenv(join(dirname(__file__), '.env'))
@@ -237,30 +228,43 @@ def create_quote():
     submission.mod.approve()
  
 
-"""
-def invetation(related_subreddits):
-    with open('resources/reddit/is_done.json') as f:
-            is_done = json.load(f)
+with open( join(dirname(__file__), 'gsheets_api-credentials.json'),'w') as f:
+    json.dump(json.loads(os.environ.get("QUOTES_REDDIT_BOT_GDRIVE_API_CREDENTIALS")),f)
 
+gc = pygsheets.authorize(service_file=join(dirname(__file__), 'gsheets_api-credentials.json'))
+
+sht = gc.open_by_key(os.environ.get("QUOTES_REDDIT_BOT_SHEET_KEY"))
+wks_users = sht.worksheet_by_title("users")
+
+done_users = []
+for number in range(1,100):
+    done_user = wks_users.cell(f'A{number}').value
+    if done_user == '':
+        break
+    done_users.append(done_user)
+
+with open( join(dirname(__file__), 'users.json'),'w') as f:
+    json.dump(json.loads(os.environ.get("QUOTES_REDDIT_BOT_DONE_USERS")),f)
+
+
+def invetation(related_subreddits):
     pk = 1
     for submission in reddit.subreddit(related_subreddits).new(limit=400):
         
         if pk == 5:
             break
-        if str(submission.author) not in is_done.keys():
+        if str(submission.author) not in done_users:
             try:
                 print(str(submission.author))
                 pk += 1
                 reddit.redditor(str(submission.author)).message(
                 "the best quotes community", "I've invited you to join our community r/quotes_and_sayings_", from_subreddit="quotes_and_sayings_")
-                
-                
-                is_done[str(submission.author)] ="w"
-                with open(f'resources/reddit/is_done.json','w') as f:
-                    json.dump(is_done,f)
+                done_users
+                wks_users.cell(f'A{len(done_users)+1}').value = str(submission.author)
+                done_users.append(str(submission.author))
             except:
                 continue
-"""
+
 
 
 number = random.randint(1,3)
@@ -271,6 +275,5 @@ elif number == 2:
     create_image_post()
 else:
     create_post()
-"""
+
 invetation("Showerthoughts+im14andthisisdeep+quotes+QuotesPorn+Stoicism+GetMotivated")
-"""
