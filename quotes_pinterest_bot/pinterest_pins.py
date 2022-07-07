@@ -1,7 +1,6 @@
 from os import listdir, remove
 import os
 import random
-from pinterest import Api
 import json
 import base64
 import sys
@@ -103,7 +102,6 @@ print('imgbbpy image url',image.url)
 
 
 access_token = os.environ.get("QUOTES_PINTEREST_BOT_ACCESS_TOKEN")
-p = Api(access_token=access_token)
 if author in authors_done.keys():
 	idid = authors_done[author] 
 else:
