@@ -214,7 +214,7 @@ def create_quote():
 
 
 
-    subr = 'quotes_and_sayings_' # Choose your subreddit
+    subr = 'quotes_and_sayings_' 
 
     subreddit = reddit.subreddit(subr) # Initialize the subreddit to a variable
 
