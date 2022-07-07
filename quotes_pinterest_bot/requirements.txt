@@ -1,0 +1,6 @@
+bs4
+tweepy
+requests
+python-dotenv
+lxml
+html5lib
