@@ -2,7 +2,7 @@ name: quotes pinterest bot
 
 on:
   schedule:
-    - cron: "*/7 * * * *" 
+    - cron: "0 0 * * *" 
 jobs:
   build:
     runs-on: ubuntu-latest
