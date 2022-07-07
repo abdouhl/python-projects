@@ -243,10 +243,6 @@ for number in range(1,100):
         break
     done_users.append(done_user)
 
-with open( join(dirname(__file__), 'users.json'),'w') as f:
-    json.dump(json.loads(os.environ.get("QUOTES_REDDIT_BOT_DONE_USERS")),f)
-
-
 def invetation(related_subreddits):
     pk = 1
     for submission in reddit.subreddit(related_subreddits).new(limit=400):
