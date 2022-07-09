@@ -1,4 +1,4 @@
-# yahoo finance twitter bot
+# memes shop tumblr bot
 
 1. Download the folder:
 ```
