@@ -6,7 +6,7 @@ import random
 import tweepy
 from dotenv import load_dotenv
 from os.path import join, dirname
-
+from PIL import Image,ImageDraw,ImageFont
 load_dotenv(join(dirname(__file__), '.env'))
 
 twitter_auth_keys = {
@@ -27,20 +27,101 @@ auth.set_access_token(
 api = tweepy.API(auth)
 
 
-interies = os.listdir('resources/quotes/')
+quotes = []
+images = []
+interies = listdir('resources/images/')
+if interies == []:
+    sys.exit()
+for inter in interies:
+    if inter.endswith(".jpg"):
+        images.append(inter)
 
-quote_file = random.choice(interies)
-with open(f'resources/quotes/{quote_file}') as f:
-    quote_file_content =  json.load(f)
-author_name = random.choice(list(quote_file_content.keys()))
-all_author_quotes = quote_file_content[author_name]
-author_quote = random.choice(all_author_quotes)
+while quotes == [] :
+    image_path = random.choice(images)
+    author = image_path.replace('.jpg','')
+    author = author.replace('_',' ')
+    author = author.lower()
+    print(author)
+    print(image_path)
+    first_let = str(author).lower()[0]
+    print(first_let)
+    with open(f'resources/quotes/{first_let}_authors.json', 'r') as f:
+        aaaaa = json.load(f)
+    
+    quotes = aaaaa.get(author.lower())
+    
+    quote = random.choice(quotes)
+        
+        
 
-auth_tag = author_name.replace(' ','').lower()
-tweet = f'"{author_quote}" -- {author_name.title()}\n#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday"'
-if len(author_quote) > 280 :
-    tweet = f'{author_quote[:280]}'
+print(quote)
+auth_tag = author.replace(' ','').lower()
+title_quote = f"{quote}"
+
+
+
+with Image.open(f"resources/images/{image_path}") as im:
+    draw = ImageDraw.Draw(im)
+    
+    fff = 51
+    hig=1400
+    while hig >800:
+        txt = f'"{quote}"'
+        fff -= 1
+        fnt = ImageFont.truetype('resources/fonts/Fraunces/static/Fraunces/Fraunces-MediumItalic.ttf', fff)
+        wid,hig =draw.multiline_textsize( txt, font=fnt, spacing=20)
+        pkk = int(wid/900)+1
+        lenn = len(txt)
+        index = int(lenn/pkk)
+        txt = list(txt)
+        while index <lenn:
+            while txt[index] != ' ':
+                index -=1
+            txt[index] = "\n"
+            index += int(lenn/pkk)
+        txt = "".join(txt)
+        print(txt)
+        
+        wid,hig =draw.multiline_textsize( txt, font=fnt, spacing=20)
+    draw.multiline_text((540, 450), txt, font=fnt,anchor="mm",align="center",spacing=20, fill="white")
+    fnt = ImageFont.truetype("resources/fonts/Tajawal-Bold.ttf", 35)
+    draw.text((540, (450+hig/2+100)), f'»»—— {author.title()} ——««', font=fnt,anchor="mb",align="center",spacing=20, fill="white")
+    fnt = ImageFont.truetype("resources/fonts/Tajawal-Bold.ttf", 25)
+    draw.text((540, (450+hig/2+200)), '– quotesandsayings.net', font=fnt,anchor="mb",align="center",spacing=20, fill="white")
+
+    im.save(join(dirname(__file__), 'img.jpg'))
+
+
+
+
+
+title = title_quote
+image_file = join(dirname(__file__), 'img.jpg')
+
+    
+users = api.search_users(author)
+auth_username = users[0].screen_name
+
+
+
+auth_tag = author.replace(' ','').lower()
+if len(title_quote) > 100 :
+    title_quote = f'{title_quote[:100]}...'
+tweet = f'"{title_quote}" -- {author.title()} | @{auth_username}\n\n#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday"'
+
 
 
     
-api.update_status(tweet[:280])
+
+
+
+
+media = api.media_upload(image_file)
+
+
+
+post_result = api.update_status(status=tweet[:280], media_ids=[media.media_id])
+
+
+
+
