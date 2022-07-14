@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from os.path import join, dirname
 from PIL import Image,ImageDraw,ImageFont
 load_dotenv(join(dirname(__file__), '.env'))
+from os import listdir
 
 twitter_auth_keys = {
     "consumer_key"        : os.environ.get("QUOTES_TWITER_BOT_CONSUMER_KEY"),
