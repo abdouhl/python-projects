@@ -1,8 +1,5 @@
 name: quotes reddit bot
 
-on:
-  schedule:
-    - cron: "*/20 * * * *" 
 jobs:
   build:
     runs-on: ubuntu-latest
