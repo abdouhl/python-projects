@@ -23,7 +23,6 @@ jobs:
       - name: execute py script 
         run: |
           python quotes_twiter_bot/post_tweet.py
-          python quotes_twiter_bot/follow_unfollow_like.py
         env:
           QUOTES_TWITER_BOT_CONSUMER_KEY: ${{secrets.QUOTES_TWITER_BOT_CONSUMER_KEY}}
           QUOTES_TWITER_BOT_CONSUMER_SECRET: ${{secrets.QUOTES_TWITER_BOT_CONSUMER_SECRET}}
