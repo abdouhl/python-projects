@@ -101,7 +101,7 @@ else :
     users = api.search_users(author_name)
     auth_username = users[0].screen_name
     auth_tag = author_name.replace(' ','').lower()
-    tweet = f'@{auth_username}\n\n#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday {quote_link}'
+    tweet = f'--@{auth_username}\n\n#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday {quote_link}'
     api.update_status(status=tweet)
 
 
