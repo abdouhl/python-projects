@@ -92,7 +92,7 @@ if ch == 1:
     media = api.media_upload(image_file)
     post_result = api.update_status(status=tweet[:280], media_ids=[media.media_id])
 else :
-    with open(join(dirname(__file__), 'quotes.json') as f:
+    with open(join(dirname(__file__)), 'quotes.json') as f:
         quotes = json.load(f)
          
     quote_link = random.choice(list(quotes.keys()))
