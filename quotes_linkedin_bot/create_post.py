@@ -19,7 +19,7 @@ headers = {'X-Restli-Protocol-Version': '2.0.0',
            'Authorization': f'Bearer {access_token}'}
 
 
-ch = random.choice(range(1,3))
+ch = random.choice(range(1,2))
 if ch == 1:
     interies = os.listdir('resources/quotes/')
     all_author_quotes = []
@@ -46,8 +46,6 @@ else:
     quote_link = random.choice(list(quotes.keys()))
     quote_text = quotes[quote_link][1]
     author_name = quotes[quote_link][0]
-    users = api.search_users(author_name)
-    auth_username = users[0].screen_name
     auth_tag = author_name.replace(' ','').lower()
     text = f'#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday {quote_link}'
     
