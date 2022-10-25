@@ -40,7 +40,7 @@ if ch == 1:
     author_tag = author_tag.replace("'",'')
     text = f'"{author_quote}" -- {author_name.title()}\n #{author_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday'
 else:
-    with open('quotes_twiter_bot/quotes.json')) as f:
+    with open('quotes_twiter_bot/quotes.json') as f:
         quotes = json.load(f)
          
     quote_link = random.choice(list(quotes.keys()))
