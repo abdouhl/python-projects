@@ -6,7 +6,7 @@ from os import listdir, remove
 from PIL import Image, ImageEnhance,ImageDraw,ImageFont
 import sys
 from os.path import join, dirname
-
+import urllib.request
 
 # Authenticate via OAuth 
 client = pytumblr.TumblrRestClient(os.environ.get("QUOTES_TUMBLR_BOT_CONSUMER_KEY"),os.environ.get("QUOTES_TUMBLR_BOT_CONSUMER_SECRET"),os.environ.get("QUOTES_TUMBLR_BOT_OAUTH_TOKEN"),os.environ.get("QUOTES_TUMBLR_BOT_OAUTH_SECRET")) 
@@ -62,7 +62,21 @@ def create_card():
     author_name = quotes[quote_link][0]
     auth_tag = author_name.replace(' ','').lower()
     tags=[f"{auth_tag}","quotes", "sayings","relatable quotes","relationship", "love quotes","love","quotes", "relationship quotes","life quotes","feelings", "quote","emotions"]
-    client.create_link('quotesandsayings-net',tags=tags, title=" ", url=quote_link, description=quote_text)
+    opener=urllib.request.build_opener()
+    opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+    urllib.request.install_opener(opener)
+
+    # setting filename and image URL 
+    filename =  join(dirname(__file__),'og_card_image.jpg')
+    image = quote_link + 'og_card_image.jpg'
+
+    # calling urlretrieve function to get resource
+    urllib.request.urlretrieve(image, filename)
+    client.create_photo('quotesandsayings-net', state="published", tags=tags,
+                    tweet=quote_text,
+                    caption=f""f'<a href="{quote_link}">{author_name.title()} quote:{quote_text}</a>',
+                    data=image)
+    
 
 def create_quote():
     interies = os.listdir('resources/quotes/')
