@@ -19,25 +19,39 @@ headers = {'X-Restli-Protocol-Version': '2.0.0',
            'Authorization': f'Bearer {access_token}'}
 
 
-interies = os.listdir('resources/quotes/')
-all_author_quotes = []
-while all_author_quotes == [] :
-    quote_file = random.choice(interies)
-    print(quote_file)
-    with open(f'resources/quotes/{quote_file}') as f:
-        quote_file_content =  json.load(f)
-    author_name = random.choice(list(quote_file_content.keys()))
-    all_author_quotes = quote_file_content[author_name]
+ch = random.choice(range(1,3))
+if ch == 1:
+    interies = os.listdir('resources/quotes/')
+    all_author_quotes = []
+    while all_author_quotes == [] :
+        quote_file = random.choice(interies)
+        print(quote_file)
+        with open(f'resources/quotes/{quote_file}') as f:
+            quote_file_content =  json.load(f)
+        author_name = random.choice(list(quote_file_content.keys()))
+        all_author_quotes = quote_file_content[author_name]
+    author_quote = random.choice(all_author_quotes)
+    print(author_name)
+    print(author_quote)
+    author_tag = author_name.lower()
+    author_tag = author_tag.replace(' ','')
+    author_tag = author_tag.replace('.','')
+    author_tag = author_tag.replace('-','')
+    author_tag = author_tag.replace("'",'')
+    text = f'"{author_quote}" -- {author_name.title()}\n #{author_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday'
+else:
+    with open('quotes_twiter_bot/quotes.json')) as f:
+        quotes = json.load(f)
+         
+    quote_link = random.choice(list(quotes.keys()))
+    quote_text = quotes[quote_link][1]
+    author_name = quotes[quote_link][0]
+    users = api.search_users(author_name)
+    auth_username = users[0].screen_name
+    auth_tag = author_name.replace(' ','').lower()
+    text = f'#{auth_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday {quote_link}'
+    
 
-
-author_quote = random.choice(all_author_quotes)
-print(author_name)
-print(author_quote)
-author_tag = author_name.lower()
-author_tag = author_tag.replace(' ','')
-author_tag = author_tag.replace('.','')
-author_tag = author_tag.replace('-','')
-author_tag = author_tag.replace("'",'')
 def post_on_linkedin():
     api_url = f'{api_url_base}ugcPosts'
 
@@ -47,7 +61,7 @@ def post_on_linkedin():
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
                 "shareCommentary": {
-                    "text":  f'"{author_quote}" -- {author_name.title()}\n #{author_tag} #quotes #quotesandsayings #motivation #inspiration #sayings #quote #quoteoftheday'
+                    "text":  text
                 },
                 "shareMediaCategory": "NONE"
             },
