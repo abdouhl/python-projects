@@ -75,7 +75,7 @@ def create_card():
     client.create_photo('quotesandsayings-net', state="published", tags=tags,
                     tweet=quote_text,
                     caption=f""f'<a href="{quote_link}">{author_name.title()} quote:{quote_text}</a>',
-                    data=image)
+                    data=filename)
     
 
 def create_quote():
