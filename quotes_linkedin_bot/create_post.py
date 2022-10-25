@@ -19,7 +19,7 @@ headers = {'X-Restli-Protocol-Version': '2.0.0',
            'Authorization': f'Bearer {access_token}'}
 
 
-ch = random.choice(range(1,2))
+ch = random.choice(range(2,3))
 if ch == 1:
     interies = os.listdir('resources/quotes/')
     all_author_quotes = []
