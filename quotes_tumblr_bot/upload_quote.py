@@ -54,7 +54,15 @@ def create_post():
     print(aauthor_name)
 
 
-
+def create_card():
+    with open('quotes_twiter_bot/quotes.json') as f:
+        quotes = json.load(f)
+    quote_link = random.choice(list(quotes.keys()))
+    quote_text = quotes[quote_link][1]
+    author_name = quotes[quote_link][0]
+    auth_tag = author_name.replace(' ','').lower()
+    tags=[f"{auth_tag}","quotes", "sayings","relatable quotes","relationship", "love quotes","love","quotes", "relationship quotes","life quotes","feelings", "quote","emotions"]
+    client.create_link('quotesandsayings-net',tags=tags, title=" ", url=quote_link, description=quote_text)
 
 def create_quote():
     interies = os.listdir('resources/quotes/')
@@ -188,8 +196,8 @@ def create_image_link():
 number = random.randint(1,3)
 
 if number == 1:
-    create_quote()
+    create_card()
 elif number == 2:
-    create_image_link()
+    create_card()
 else:
-    create_post()
+    create_card()
