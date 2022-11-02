@@ -9,6 +9,7 @@ from praw.models import InlineImage
 from os.path import join, dirname
 from dotenv import load_dotenv
 import pygsheets
+import urllib.request
 
 
 load_dotenv(join(dirname(__file__), '.env'))
