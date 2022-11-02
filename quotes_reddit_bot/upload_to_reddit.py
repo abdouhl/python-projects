@@ -121,12 +121,12 @@ def create_card():
     urllib.request.urlretrieve(image, filename)
     images = [
         {
-            "image_path": image,
+            "image_path": filename,
             "caption": "➡️Click Here To Read More Quotes!➡️➡️",
             "outbound_url": quote_link,
         },
         {
-            "image_path": image,
+            "image_path": filename,
             "caption": "➡️Click Here To Read More Quotes!➡️➡️",
             "outbound_url": quote_link,
         },
