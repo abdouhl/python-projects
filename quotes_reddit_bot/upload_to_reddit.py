@@ -131,6 +131,8 @@ def create_card():
             "outbound_url": quote_link,
         },
     ]
+    subr = 'quotesandsayings__net' 
+    subreddit = reddit.subreddit(subr) 
     submission = subreddit.submit_gallery(quote_text, images)
     submission.mod.approve()
 
