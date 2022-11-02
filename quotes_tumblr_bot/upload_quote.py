@@ -11,7 +11,6 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import pygsheets
 
-time.sleep(60)
 load_dotenv(join(dirname(__file__), '.env'))
 
 reddit = praw.Reddit(client_id=os.environ.get("QUOTES_REDDIT_BOT_CLIENT_ID"),
