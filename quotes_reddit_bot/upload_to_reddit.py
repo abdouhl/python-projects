@@ -24,7 +24,7 @@ reddit = praw.Reddit(client_id=os.environ.get("QUOTES_REDDIT_BOT_CLIENT_ID"),
                      refresh_token=os.environ.get("QUOTES_REDDIT_BOT_REFRESH_TOKEN"))
 
 def create_post():
-    subr = 'quotes_and_sayings_' # Choose your subreddit quotesandsayings root
+    subr = 'quotesandsayings__net' # Choose your subreddit quotesandsayings root
 
     subreddit = reddit.subreddit(subr) # Initialize the subreddit to a variable
 
@@ -143,7 +143,7 @@ def create_image_post():
 
 
 
-    subr = 'quotes_and_sayings_' # Choose your subreddit
+    subr = 'quotesandsayings__net' # Choose your subreddit
 
     subreddit = reddit.subreddit(subr) # Initialize the subreddit to a variable
 
@@ -214,7 +214,7 @@ def create_quote():
 
 
 
-    subr = 'quotes_and_sayings_' 
+    subr = 'quotesandsayings__net' 
 
     subreddit = reddit.subreddit(subr) # Initialize the subreddit to a variable
 
@@ -254,7 +254,7 @@ def invetation(related_subreddits):
                 print(str(submission.author))
                 pk += 1
                 reddit.redditor(str(submission.author)).message(
-                "the best quotes community", "I've invited you to join our community r/quotes_and_sayings_", from_subreddit="quotes_and_sayings_")
+                "the best quotes community", "I've invited you to join our community r/quotesandsayings__net", from_subreddit="quotesandsayings__net")
                 done_users
                 wks_users.cell(f'A{len(done_users)+1}').value = str(submission.author)
                 done_users.append(str(submission.author))
