@@ -5,11 +5,41 @@ from dotenv import load_dotenv
 import os
 from os.path import join, dirname
 import urllib.request
+import random
 
 load_dotenv(join(dirname(__file__), '.env'))
 
+twitter_auth_keys = {
+    "consumer_key"        : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_KEY"),
+    "consumer_secret"     : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_CONSUMER_SECRET"),
+    "access_token"        : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_ACCESS_TOKEN"),
+    "access_token_secret" : os.environ.get("YAHOO_FINANCE_TWITTER_BOT_ACCESS_TOKEN_SECRET")
+}
+
+auth = tweepy.OAuthHandler(
+    twitter_auth_keys['consumer_key'],
+    twitter_auth_keys['consumer_secret']
+)
+auth.set_access_token(
+    twitter_auth_keys['access_token'],
+    twitter_auth_keys['access_token_secret']
+)
+api = tweepy.API(auth)
 
 
+
+req = requests.get('https://ar.quotes.quotesandsayings.net/authors/')
+bs = BeautifulSoup(req.text, 'html.parser')
+quotes = bs.find_all('li')
+quote = random.choice(quotes)
+author_name = quote.find('p').text
+quote_text = quote.find('a').text
+
+auth_tag = author_name.replace(' ','').lower()
+tweet = f'"{quote_text}" -- {author_name.}\n\n#{auth_tag} #حكم #معاني #أقوال #أقتباس'
+api.update_status(tweet[:280])
+
+"""
 req = requests.get('https://finance.yahoo.com/news/rssindex')
 bs = BeautifulSoup(req.text, 'xml')
 items = bs.find_all('item')
@@ -63,3 +93,4 @@ img_filename = join(dirname(__file__), 'tshirt_bot.jpeg')
 urllib.request.urlretrieve(image_url, img_filename)
 
 api.update_status_with_media(status=f'{title[:240]}\n\n➡️Read More➡️{link}',filename=img_filename )
+"""
