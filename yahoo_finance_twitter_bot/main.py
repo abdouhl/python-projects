@@ -36,7 +36,7 @@ author_name = quote.find('p').text
 quote_text = quote.find('a').text
 
 auth_tag = author_name.replace(' ','').lower()
-tweet = f'"{quote_text}" -- {author_name.}\n\n#{auth_tag} #حكم #معاني #أقوال #أقتباس'
+tweet = f'"{quote_text}" -- {author_name}\n\n#{auth_tag} #حكم #معاني #أقوال #أقتباس'
 api.update_status(tweet[:280])
 
 """
