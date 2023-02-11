@@ -3,9 +3,9 @@
 name: yahoo finance twitter bot
 
 # Controls when the workflow will run
-on:
-  schedule:
-    - cron: "0 * * * *" 
+#on:
+#  schedule:
+#    - cron: "0 * * * *" 
 jobs:
   build:
     runs-on: ubuntu-latest
